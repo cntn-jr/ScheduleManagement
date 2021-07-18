@@ -16,8 +16,10 @@ class SchedulesController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $schedules = Schedules::where('user_id', $user->id)->get();
-        // $schedules = Schedules::all();
+        $now = date('Y-m-d');
+        $schedules = Schedules::where('user_id', $user->id)
+                    ->where('scheduledDate', $now)
+                    ->get();
         // dd($schedules);
         return view('schedules/index')->with(['schedules'=>$schedules]);
     }
