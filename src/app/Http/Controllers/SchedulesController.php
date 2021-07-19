@@ -31,7 +31,7 @@ class SchedulesController extends Controller
      */
     public function create()
     {
-        //
+        return view('schedules/create');
     }
 
     /**
@@ -42,7 +42,27 @@ class SchedulesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $request->validate([
+            'title' => ['required', 'string', 'max:20'],
+            'content' => ['required', 'string', 'max:100'],
+            'scheduledDate' => ['required', 'date', 'after:today'],
+        ],[
+            'title.required' => 'タイトルは必ず入力して下さい',
+            'title.max' => 'タイトルは２０文字以内です',
+            'content.required' => '予定内容は必ず入力して下さい',
+            'content.max' => '予定内容は１００文字以内です',
+            'scheduledDate.required' => '予定日は必ず入力して下さい',
+            'scheduledDate.after' => '予定日は明日以降です',
+        ]);
+        Schedules::create([
+            'title' => $request->input('title'),
+            'content' => $request->input('content'),
+            'scheduledDate' => date($request->input('scheduledDate')),
+            'user_id' => $user->id,
+        ]);
+        $success_message = '予定を追加しました';
+        return redirect()->route('schedule.index')->with('success_message', $success_message);
     }
 
     /**

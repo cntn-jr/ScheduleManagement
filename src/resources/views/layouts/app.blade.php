@@ -52,6 +52,17 @@
                                 </li>
                             @endif
                         @else
+                        <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ __('予定')}}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{route('schedule.create')}}">
+                                        {{ __('追加') }}
+                                    </a>
+                                </div>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -74,6 +85,15 @@
                 </div>
             </div>
         </nav>
+
+        @if(session('success_message'))
+            <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                {{session('success_message')}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
 
         <main class="py-4">
             @yield('content')
