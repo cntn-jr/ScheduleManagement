@@ -9,11 +9,11 @@
 
                     <div class="card-body">
                         @empty($schedules)
+                            <p class="alert alert-warning text-center">今日の予定はありません</p>
+                        @else
                             @foreach($schedules as $schedule)
                                 <p class="text-center">{{$schedule->title}}</p>
                             @endforeach
-                        @else
-                            <p class="alert alert-warning text-center">今日の予定はありません</p>
                         @endempty
                     </div>
                 </div>
