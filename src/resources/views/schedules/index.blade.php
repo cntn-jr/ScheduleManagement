@@ -11,9 +11,15 @@
                         @empty($schedules)
                             <p class="alert alert-warning text-center">今日の予定はありません</p>
                         @else
-                            @foreach($schedules as $schedule)
-                                <p class="text-center">{{$schedule->title}}</p>
-                            @endforeach
+                            <table class="table table-striped">
+                                @foreach($schedules as $schedule)
+                                    <tr>
+                                        <td class="col text-center">
+                                            {{$schedule->title}}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </table>
                         @endempty
                     </div>
                 </div>
