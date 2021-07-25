@@ -21,3 +21,5 @@ Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('/schedule', 'SchedulesController')->middleware('auth');
+
+Route::resource('/calendar', 'CalendarController')->middleware('auth');

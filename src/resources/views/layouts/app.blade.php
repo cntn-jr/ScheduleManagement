@@ -61,7 +61,12 @@
                                     <a class="dropdown-item" href="{{route('schedule.create')}}">
                                         {{ __('追加') }}
                                     </a>
+
+                                    <a class="dropdown-item" href="{{route('calendar.index')}}">
+                                        {{ __('カレンダー') }}
+                                    </a>
                                 </div>
+
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
