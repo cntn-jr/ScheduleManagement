@@ -1876,6 +1876,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1884,41 +1888,74 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       currentDate: moment()
     };
   },
-  method: {},
-  computed: {
+  methods: {
     getCalendar: function getCalendar() {
       var calendarAry = [];
       var calendarAryByWeek = [];
-      var startDayNum = moment().startOf('month').day();
-      var beforeMonth = moment().add(-1, 'M');
+      var currentDate = this.currentDate;
+      var startDayNum = currentDate.startOf('month').day();
+      var beforeMonth = currentDate.add(-1, 'M');
       var lastDateNum = beforeMonth.endOf('month').date();
 
       for (var i = 0; i < startDayNum; i++) {
-        calendarAry.unshift(lastDateNum);
+        calendarAry.unshift({
+          date: lastDateNum,
+          "class": 'notThisMonth'
+        });
         lastDateNum--;
       }
 
-      var endDate = moment().endOf('month').date();
+      currentDate.add(1, 'M');
+      var endDate = currentDate.endOf('month').date();
 
       for (var date = 1; date <= endDate; date++) {
-        calendarAry.push(date);
+        if (currentDate.month() == moment().month() && date === moment().date()) {
+          calendarAry.push({
+            date: date,
+            "class": 'today'
+          });
+        } else {
+          calendarAry.push({
+            date: date,
+            "class": ''
+          });
+        }
       }
 
-      var endDayNum = moment().endOf('month').day();
+      var endDayNum = currentDate.endOf('month').day();
       var nextMonthDate = 1;
 
       for (var _i = endDayNum; _i < 6; _i++) {
-        calendarAry.push(nextMonthDate);
+        calendarAry.push({
+          date: nextMonthDate,
+          "class": 'notThisMonth'
+        });
         nextMonthDate++;
       }
 
       var weekCount = calendarAry.length / 7;
 
       for (var _i2 = 0; _i2 < weekCount; _i2++) {
-        calendarAryByWeek.push(calendarAry.splice(0, 7));
+        var week = calendarAry.splice(0, 7);
+        week[0]["class"] += ' text-primary';
+        week[6]["class"] += ' text-danger';
+        calendarAryByWeek.push(week);
       }
 
       return calendarAryByWeek;
+    },
+    addMonth: function addMonth() {
+      this.currentDate = moment(this.currentDate).add(1, 'M');
+      this.getCalendar();
+    },
+    reduceMonth: function reduceMonth() {
+      this.currentDate = moment(this.currentDate).add(-1, 'M');
+      this.getCalendar();
+    }
+  },
+  computed: {
+    calendar: function calendar() {
+      return this.getCalendar();
     }
   },
   mounted: function mounted() {}
@@ -6470,7 +6507,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#calendar-table[data-v-56bbe5f8]{\n    border-collapse: collapse;\n}\ntd[data-v-56bbe5f8],th[data-v-56bbe5f8]{\n    border: 2px solid #eee;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#calendar-table[data-v-56bbe5f8]{\n    border-collapse: collapse;\n}\ntd[data-v-56bbe5f8],th[data-v-56bbe5f8]{\n    border: 2px solid #eee;\n    height: 50px;\n    width: 100px;\n}\n.notThisMonth[data-v-56bbe5f8]{\n    opacity: 0.4;\n}\n.today[data-v-56bbe5f8]{\n    font-weight: bold;\n    font-size: 1.2em;\n}\n.date-box[data-v-56bbe5f8]{\n    width: 100px;\n    height: 100px\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -59346,8 +59383,33 @@ var render = function() {
       _c("div", { staticClass: "col-md-8" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
-            _c("div", { staticClass: "col text-center" }, [
-              _vm._v(_vm._s(_vm.currentDate.month() + 1) + "月")
+            _c("div", { staticClass: "row" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "page-link text-reset ml-5",
+                  on: { click: _vm.reduceMonth }
+                },
+                [_vm._v("«")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col text-center mt-2" }, [
+                _vm._v(
+                  _vm._s(_vm.currentDate.year()) +
+                    "年 " +
+                    _vm._s(_vm.currentDate.month() + 1) +
+                    "月"
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "page-link text-reset mr-5",
+                  on: { click: _vm.addMonth }
+                },
+                [_vm._v("»")]
+              )
             ])
           ]),
           _vm._v(" "),
@@ -59360,20 +59422,18 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  _vm._l(_vm.getCalendar, function(week, index) {
+                  _vm._l(_vm.calendar, function(week, index) {
                     return _c(
                       "tr",
                       { key: index, staticClass: "row" },
                       _vm._l(week, function(date, index) {
                         return _c(
                           "td",
-                          { key: index, staticClass: "col p-4" },
+                          { key: index, staticClass: "col date-box" },
                           [
-                            _vm._v(
-                              "\n                                    " +
-                                _vm._s(date) +
-                                "\n                                "
-                            )
+                            _c("span", { class: date.class }, [
+                              _vm._v(_vm._s(date.date))
+                            ])
                           ]
                         )
                       }),
@@ -59397,13 +59457,17 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", { staticClass: "row" }, [
-        _c("td", { staticClass: "col px-4 py-3" }, [_vm._v("日")]),
-        _c("td", { staticClass: "col px-4 py-3" }, [_vm._v("月")]),
-        _c("td", { staticClass: "col px-4 py-3" }, [_vm._v("火")]),
-        _c("td", { staticClass: "col px-4 py-3" }, [_vm._v("水")]),
-        _c("td", { staticClass: "col px-4 py-3" }, [_vm._v("木")]),
-        _c("td", { staticClass: "col px-4 py-3" }, [_vm._v("金")]),
-        _c("td", { staticClass: "col px-4 py-3" }, [_vm._v("土")])
+        _c("td", { staticClass: "col text-primary text-center py-2" }, [
+          _vm._v("日")
+        ]),
+        _c("td", { staticClass: "col text-center py-2" }, [_vm._v("月")]),
+        _c("td", { staticClass: "col text-center py-2" }, [_vm._v("火")]),
+        _c("td", { staticClass: "col text-center py-2" }, [_vm._v("水")]),
+        _c("td", { staticClass: "col text-center py-2" }, [_vm._v("木")]),
+        _c("td", { staticClass: "col text-center py-2" }, [_vm._v("金")]),
+        _c("td", { staticClass: "col text-center py-2 text-danger" }, [
+          _vm._v("土")
+        ])
       ])
     ])
   }
