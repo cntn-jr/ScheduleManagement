@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('今日の予定') }}</div>
 
                     <div class="card-body">
-                        @empty($schedules)
+                        @if($schedules)
                             <p class="alert alert-warning text-center">今日の予定はありません</p>
                         @else
                             <table class="table table-striped">
@@ -20,7 +20,7 @@
                                     </tr>
                                 @endforeach
                             </table>
-                        @endempty
+                        @endif
                     </div>
                 </div>
             </div>
