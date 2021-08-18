@@ -2070,7 +2070,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     }
   },
   mounted: function mounted() {},
-  props: ["schedules"]
+  props: ["schedules", "atTime"]
 });
 
 /***/ }),
@@ -59881,7 +59881,7 @@ var render = function() {
         ])
       : _c("div", [
           _c("p", { staticClass: "alert alert-warning text-center my-4" }, [
-            _vm._v("今日の予定はありません")
+            _vm._v(_vm._s(_vm.atTime) + "の予定はありません")
           ])
         ])
   ])

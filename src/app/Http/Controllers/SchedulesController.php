@@ -17,11 +17,15 @@ class SchedulesController extends Controller
     {
         $user = Auth::user();
         $now = date('Y-m-d');
-        $schedules = Schedules::where('user_id', $user->id)
+        $week_ary = [date('y-m-d', strtotime('+1 day')), date('y-m-d', strtotime('+6 day'))];
+        $today_schedules = Schedules::where('user_id', $user->id)
                     ->where('scheduledDate', $now)
                     ->get();
-        // dd($schedules);
-        return view('schedules/index')->with(['schedules'=>$schedules]);
+        $week_schedules = Schedules::where('user_id', $user->id)
+                    ->whereBetween('scheduledDate', $week_ary)
+                    ->get();
+        return view('schedules/index')
+            ->with(['today_schedules'=>$today_schedules, 'week_schedules'=>$week_schedules]);
     }
 
     /**

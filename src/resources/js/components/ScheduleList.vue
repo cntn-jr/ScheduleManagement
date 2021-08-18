@@ -10,7 +10,7 @@
             </table>
         </div>
         <div v-else>
-            <p class="alert alert-warning text-center my-4">今日の予定はありません</p>
+            <p class="alert alert-warning text-center my-4">{{atTime}}の予定はありません</p>
         </div>
     </div>
 </template>
@@ -35,7 +35,7 @@ export default {
     },
     mounted(){
     },
-    props: ["schedules"],
+    props: ["schedules", "atTime",],
 }
 </script>
 
