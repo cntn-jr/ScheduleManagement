@@ -3,7 +3,6 @@
 @section('content')
 
     <div class="container">
-        <calendar-component><calendar-component>
+        <calendar-component v-bind:schedules="{{$schedules}}"></calendar-component>
     </div>
-
 @endsection

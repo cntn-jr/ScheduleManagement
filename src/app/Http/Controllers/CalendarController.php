@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Schedules;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CalendarController extends Controller
 {
@@ -13,7 +15,10 @@ class CalendarController extends Controller
      */
     public function index()
     {
-        return view('calendar.index');
+        $user = Auth::user();
+        $schedules = Schedules::where('user_id', $user->id)
+                            ->get();
+        return view('calendar.index')->with(['schedules'=>$schedules]);
     }
 
     /**

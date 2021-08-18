@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
@@ -12,6 +12,9 @@
                     </div>
 
                     <div class="card-body">
+                        <!-- <div v-for="(schedule, key) in schedules" :key="key">
+                            {{schedule.title}}
+                        </div> -->
                         <table id="calendar-table" class="mx-auto my-4">
                             <thead>
                                 <tr class="row">
@@ -22,6 +25,7 @@
                                 <tr class="row" v-for="(week, index) in calendar" :key="index">
                                     <td v-for="(date, index) in week" :key="index" class="col date-box">
                                         <span :class="date.class">{{date.date}}</span>
+                                        <is-schedule :schedules="schedules" :year="currentDate.year()" :month="currentDate.month() + 1" :date="date.date"></is-schedule>
                                     </td>
                                 </tr>
                             </tbody>
@@ -34,9 +38,11 @@
 </template>
 
 <script>
+import IsSchedule from './IsSchedule.vue';
 const moment = require('moment')
 
 export default {
+    components: { IsSchedule },
     data(){
         return {
             currentDate: moment(),
@@ -96,10 +102,11 @@ export default {
         calendar(){
             return this.getCalendar();
         }
-
     },
     mounted(){
-    }
+        console.log(this.schedules);
+    },
+    props: ["schedules"],
 }
 </script>
 
