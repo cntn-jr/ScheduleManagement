@@ -50,7 +50,14 @@ class CalendarController extends Controller
      */
     public function show($id)
     {
-        //
+        // $date = date($id);
+        // $this_year = date('Y', strtotime($date));
+        // $this_month = date('m', strtotime($date));
+        // $this_day = date('d', strtotime($date));
+        // $this_date = (string)$this_year.'/'.(string)$this_month.'/'.(string)$this_day;
+        // $schedules = Schedules::where('scheduledDate', $this_date)
+        //             ->get();
+        // return view('calendar.show')->with(['schedules'=>$schedules, 'date'=>$this_date]);
     }
 
     /**
@@ -85,5 +92,14 @@ class CalendarController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function showDay($year, $month, $day)
+    {
+        $show_date = (string)$year.'/'.(string)$month.'/'.(string)$day;
+        $date = date($show_date);
+        $schedules = Schedules::where('scheduledDate', $date)
+                    ->get();
+        return view('calendar.show')->with(['schedules'=>$schedules, 'date'=>$show_date]);
     }
 }

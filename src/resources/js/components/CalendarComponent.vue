@@ -23,9 +23,8 @@
                             </thead>
                             <tbody>
                                 <tr class="row" v-for="(week, index) in calendar" :key="index">
-                                    <td v-for="(date, index) in week" :key="index" class="col date-box">
-                                        <span :class="date.class">{{date.date}}</span>
-                                        <is-schedule :schedules="schedules" :year="currentDate.year()" :month="currentDate.month() + 1" :date="date.date"></is-schedule>
+                                    <td v-for="(date, index) in week" :key="index" class="date-box">
+                                        <calendar-date :schedules="schedules" :year="currentDate.year()" :month="currentDate.month() + 1" :date="date"></calendar-date>
                                     </td>
                                 </tr>
                             </tbody>
@@ -38,11 +37,11 @@
 </template>
 
 <script>
-import IsSchedule from './IsSchedule.vue';
+import CalendarDate from './CalendarDate.vue';
 const moment = require('moment')
 
 export default {
-    components: { IsSchedule },
+    components: { CalendarDate },
     data(){
         return {
             currentDate: moment(),
@@ -82,8 +81,16 @@ export default {
             const weekCount = calendarAry.length / 7;
             for(let i = 0; i < weekCount; i++){
                 const week = calendarAry.splice(0,7);
-                week[0].class += ' text-primary';
-                week[6].class += ' text-danger';
+                for(let key in week){
+                    if(key == 0){
+                        week[key].class += ' sunday';
+                    }
+                    else if(key == 6){
+                        week[key].class += ' saturday';
+                    }else{
+                        week[key].class += ' weekday';
+                    }
+                }
                 calendarAryByWeek.push(week);
             }
 
@@ -101,7 +108,7 @@ export default {
     computed:{
         calendar(){
             return this.getCalendar();
-        }
+        },
     },
     mounted(){
         console.log(this.schedules);
@@ -119,13 +126,6 @@ export default {
         border: 2px solid #eee;
         height: 50px;
         width: 100px;
-    }
-    .notThisMonth{
-        opacity: 0.4;
-    }
-    .today{
-        font-weight: bold;
-        font-size: 1.2em;
     }
     .date-box{
         width: 100px;

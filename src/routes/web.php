@@ -23,3 +23,5 @@ Auth::routes();
 Route::resource('/schedule', 'SchedulesController')->middleware('auth');
 
 Route::resource('/calendar', 'CalendarController')->middleware('auth');
+
+Route::get('/calendar/{year}/{month}/{day}', 'CalendarController@showDay')->middleware('auth');

@@ -17,7 +17,7 @@ class SchedulesController extends Controller
     {
         $user = Auth::user();
         $now = date('Y-m-d');
-        $week_ary = [date('y-m-d', strtotime('+1 day')), date('y-m-d', strtotime('+6 day'))];
+        $week_ary = [date('Y-m-d', strtotime('+1 day')), date('Y-m-d', strtotime('+6 day'))];
         $today_schedules = Schedules::where('user_id', $user->id)
                     ->where('scheduledDate', $now)
                     ->get();
