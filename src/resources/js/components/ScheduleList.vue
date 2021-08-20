@@ -4,7 +4,7 @@
             <table class="table table-borderless">
                 <tr v-for="(schedule, index) in schedules" :key="index">
                     <td class="col text-center">
-                        <h5>{{schedule.title}}</h5>
+                        <h5><a :href="link + schedule.id">{{schedule.title}}</a></h5>
                     </td>
                 </tr>
             </table>
@@ -21,6 +21,7 @@ const moment = require('moment')
 export default {
     data(){
         return{
+            link: '/schedule/',
         }
     },
     methods:{
@@ -31,7 +32,7 @@ export default {
                 return false;
             }
             return true;
-        }
+        },
     },
     mounted(){
     },
@@ -40,4 +41,8 @@ export default {
 </script>
 
 <style scoped>
+    a{
+        color: #2c3e50;
+        text-decoration-color: #bdc3c7;
+    }
 </style>

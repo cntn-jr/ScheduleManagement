@@ -75,9 +75,12 @@ class SchedulesController extends Controller
      * @param  \App\Models\schedules  $schedules
      * @return \Illuminate\Http\Response
      */
-    public function show(schedules $schedules)
+    public function show(schedules $schedules, $id)
     {
-        //
+        $schedule = $schedules->find($id);
+        $scheduledDate = date('Y/m/d' ,strtotime($schedule->scheduledDate));
+        $schedule->scheduledDate = $scheduledDate;
+        return view('schedules.show')->with(['schedule'=>$schedule]);
     }
 
     /**
