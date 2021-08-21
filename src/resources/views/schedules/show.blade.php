@@ -18,6 +18,9 @@
                                 {{$schedule->content}}
                             </div>
                         </div>
+                        <div class="mt-4 mx-auto text-right">
+                                <a class="btn btn-primary" href="{{route('schedule.edit', $schedule->id)}}">編集</a>
+                            </div>
                     </div>
                 </div>
             </div>

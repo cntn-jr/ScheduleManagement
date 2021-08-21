@@ -89,9 +89,10 @@ class SchedulesController extends Controller
      * @param  \App\Models\schedules  $schedules
      * @return \Illuminate\Http\Response
      */
-    public function edit(schedules $schedules)
+    public function edit(schedules $schedules, $id)
     {
-        //
+        $schedule = Schedules::find($id);
+        return view('schedules.edit')->with(['schedule'=>$schedule]);
     }
 
     /**
@@ -101,9 +102,27 @@ class SchedulesController extends Controller
      * @param  \App\Models\schedules  $schedules
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, schedules $schedules)
+    public function update(Request $request, schedules $schedules, $id)
     {
-        //
+        $schedule = $schedules->find($id);
+        $request->validate([
+            'title' => ['required', 'string', 'max:20'],
+            'content' => ['required', 'string', 'max:100'],
+            'scheduledDate' => ['required', 'date', 'after:today'],
+        ],[
+            'title.required' => 'タイトルは必ず入力して下さい',
+            'title.max' => 'タイトルは２０文字以内です',
+            'content.required' => '予定内容は必ず入力して下さい',
+            'content.max' => '予定内容は１００文字以内です',
+            'scheduledDate.required' => '予定日は必ず入力して下さい',
+            'scheduledDate.after' => '予定日は明日以降です',
+        ]);
+        $schedule->title = $request->input('title');
+        $schedule->scheduledDate = $request->input('scheduledDate');
+        $schedule->content = $request->input('content');
+        $schedule->save();
+        $success_message = '予定を変更しました';
+        return redirect()->route('schedule.index')->with('success_message', $success_message);
     }
 
     /**
