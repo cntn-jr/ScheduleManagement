@@ -9,7 +9,12 @@
                     <div class="card-header bg-primary text-white">{{$date}}{{ __('の予定') }}</div>
 
                     <div class="card-body">
-                        <schedule-list :schedules={{$schedules}} at-time='{{$date}}'></schedule-list>
+                        <div class="mt-2 mb-4 text-right">
+                            <a class="btn btn-outline-danger btn-sm rounded-pill">＋予定追加</a>
+                        </div>
+                        <div class="mb-5">
+                            <schedule-list :schedules={{$schedules}} at-time='{{$date}}'></schedule-list>
+                        </div>
                     </div>
                 </div>
             </div>
