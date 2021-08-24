@@ -1903,13 +1903,15 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       var calendarAryByWeek = [];
       var currentDate = this.currentDate;
       var startDayNum = currentDate.startOf('month').day();
-      var beforeMonth = currentDate.add(-1, 'M');
+      var beforeMonth = currentDate.subtract(1, 'M');
       var lastDateNum = beforeMonth.endOf('month').date();
 
       for (var i = 0; i < startDayNum; i++) {
         calendarAry.unshift({
           date: lastDateNum,
-          "class": 'notThisMonth'
+          "class": 'notThisMonth',
+          year: beforeMonth.year(),
+          month: beforeMonth.month() + 1
         });
         lastDateNum--;
       }
@@ -1921,27 +1923,35 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         if (currentDate.month() == moment().month() && date === moment().date()) {
           calendarAry.push({
             date: date,
-            "class": 'today'
+            "class": 'today',
+            year: currentDate.year(),
+            month: currentDate.month() + 1
           });
         } else {
           calendarAry.push({
             date: date,
-            "class": ''
+            "class": '',
+            year: currentDate.year(),
+            month: currentDate.month() + 1
           });
         }
       }
 
       var endDayNum = currentDate.endOf('month').day();
+      var nextMonth = currentDate.add(1, 'M');
       var nextMonthDate = 1;
 
       for (var _i = endDayNum; _i < 6; _i++) {
         calendarAry.push({
           date: nextMonthDate,
-          "class": 'notThisMonth'
+          "class": 'notThisMonth',
+          year: nextMonth.year(),
+          month: nextMonth.month() + 1
         });
         nextMonthDate++;
       }
 
+      currentDate.subtract(1, 'M');
       var weekCount = calendarAry.length / 7;
 
       for (var _i2 = 0; _i2 < weekCount; _i2++) {
@@ -1976,9 +1986,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       return this.getCalendar();
     }
   },
-  mounted: function mounted() {
-    console.log(this.schedules);
-  },
+  mounted: function mounted() {},
   props: ["schedules"]
 });
 
@@ -2012,9 +2020,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {
-      link: '/calendar/' + this.year + '/' + this.month + '/' + this.date.date
-    };
+    return {};
   },
   methods: {},
   computed: {
@@ -2033,7 +2039,9 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       return false;
     }
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    console.log(this.date);
+  },
   props: ["schedules", "year", "month", "date"]
 });
 
@@ -59845,8 +59853,8 @@ var render = function() {
                             _c("calendar-date", {
                               attrs: {
                                 schedules: _vm.schedules,
-                                year: _vm.currentDate.year(),
-                                month: _vm.currentDate.month() + 1,
+                                year: date.year,
+                                month: date.month,
                                 date: date
                               }
                             })
@@ -59912,17 +59920,27 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("a", { attrs: { href: _vm.link } }, [
-      _c("div", { staticClass: "date-box col" }, [
-        _c("span", { class: _vm.date.class }, [_vm._v(_vm._s(_vm.date.date))]),
-        _vm._v(" "),
-        _vm.isSchedule
-          ? _c("div", { staticClass: "is-schedule text-truncate mt-2" }, [
-              _vm._v("\n                予定あり\n            ")
-            ])
-          : _vm._e()
-      ])
-    ])
+    _c(
+      "a",
+      {
+        attrs: {
+          href: "/calendar/" + _vm.year + "/" + _vm.month + "/" + _vm.date.date
+        }
+      },
+      [
+        _c("div", { staticClass: "date-box col" }, [
+          _c("span", { class: _vm.date.class }, [
+            _vm._v(_vm._s(_vm.date.date))
+          ]),
+          _vm._v(" "),
+          _vm.isSchedule
+            ? _c("div", { staticClass: "is-schedule text-truncate mt-2" }, [
+                _vm._v("\n                予定あり\n            ")
+              ])
+            : _vm._e()
+        ])
+      ]
+    )
   ])
 }
 var staticRenderFns = []

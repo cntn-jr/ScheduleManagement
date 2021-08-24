@@ -24,7 +24,7 @@
                             <tbody>
                                 <tr class="row" v-for="(week, index) in calendar" :key="index">
                                     <td v-for="(date, index) in week" :key="index" class="date-box">
-                                        <calendar-date :schedules="schedules" :year="currentDate.year()" :month="currentDate.month() + 1" :date="date"></calendar-date>
+                                        <calendar-date :schedules="schedules" :year="date.year" :month="date.month" :date="date"></calendar-date>
                                     </td>
                                 </tr>
                             </tbody>
@@ -54,10 +54,15 @@ export default {
             const currentDate = this.currentDate;
 
             const startDayNum = currentDate.startOf('month').day();
-            const beforeMonth = currentDate.add(-1, 'M');
+            const beforeMonth = currentDate.subtract(1, 'M');
             let lastDateNum = beforeMonth.endOf('month').date();
             for(let i = 0; i < startDayNum; i++){
-                calendarAry.unshift({ date: lastDateNum, class: 'notThisMonth' });
+                calendarAry.unshift({
+                    date: lastDateNum,
+                    class: 'notThisMonth',
+                    year: beforeMonth.year(),
+                    month: beforeMonth.month() + 1
+                });
                 lastDateNum--;
             }
 
@@ -65,19 +70,36 @@ export default {
             const endDate =  currentDate.endOf('month').date();
             for(let date = 1; date <= endDate; date++){
                 if(currentDate.month() == moment().month() && date === moment().date()){
-                    calendarAry.push({ date: date, class: 'today' } );
+                    calendarAry.push({
+                        date: date,
+                        class: 'today',
+                        year: currentDate.year(),
+                        month: currentDate.month() + 1,
+                    } );
                 }else{
-                    calendarAry.push({ date: date, class: '' } );
+                    calendarAry.push({
+                        date: date,
+                        class: '',
+                        year: currentDate.year(),
+                        month: currentDate.month() + 1,
+                    });
                 }
             }
 
             const endDayNum = currentDate.endOf('month').day();
+            const nextMonth = currentDate.add(1, 'M');
             let nextMonthDate = 1;
             for(let i = endDayNum; i <  6; i++){
-                calendarAry.push({ date: nextMonthDate, class: 'notThisMonth' });
+                calendarAry.push({
+                    date: nextMonthDate,
+                    class: 'notThisMonth',
+                    year: nextMonth.year(),
+                    month: nextMonth.month() + 1,
+                });
                 nextMonthDate++;
             }
 
+            currentDate.subtract(1, 'M');
             const weekCount = calendarAry.length / 7;
             for(let i = 0; i < weekCount; i++){
                 const week = calendarAry.splice(0,7);
@@ -111,7 +133,6 @@ export default {
         },
     },
     mounted(){
-        console.log(this.schedules);
     },
     props: ["schedules"],
 }

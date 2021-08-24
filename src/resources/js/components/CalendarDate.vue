@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a v-bind:href="link">
+        <a v-bind:href="'/calendar/' + year + '/' + month + '/' + date.date">
             <div class="date-box col">
                 <span :class="date.class">{{date.date}}</span>
                 <div v-if="isSchedule" class="is-schedule text-truncate mt-2">
@@ -17,7 +17,6 @@ const moment = require('moment')
 export default {
     data(){
         return{
-            link: '/calendar/' + this.year + '/' + this.month + '/' + this.date.date
         }
     },
     methods:{
@@ -40,6 +39,7 @@ export default {
         }
     },
     mounted(){
+        console.log(this.date);
     },
     props: ["schedules", "year", "month", "date"],
 }
