@@ -23,6 +23,7 @@ import Vue from 'vue';
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('calendar-component', require('./components/CalendarComponent.vue').default);
 Vue.component('schedule-list', require('./components/ScheduleList.vue').default);
+Vue.component('delete-modal', require('./components/DeleteModal.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

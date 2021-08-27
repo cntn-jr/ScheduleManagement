@@ -131,8 +131,14 @@ class SchedulesController extends Controller
      * @param  \App\Models\schedules  $schedules
      * @return \Illuminate\Http\Response
      */
-    public function destroy(schedules $schedules)
+    public function destroy(schedules $schedules, $id)
     {
-        //
+        $user = Auth::user();
+        $schedule = $schedules->find($id);
+        // dd($schedule);
+        if($schedule->user_id != $user->id) return redirect('/');
+        $schedule->delete();
+        $success_message = '予定を削除しました';
+        return redirect()->route('calendar.index')->with(['success_message'=>$success_message]);
     }
 }

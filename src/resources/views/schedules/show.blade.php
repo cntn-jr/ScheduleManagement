@@ -18,9 +18,10 @@
                                 {{$schedule->content}}
                             </div>
                         </div>
-                        <div class="mt-4 mx-auto text-right">
-                                <a class="btn btn-primary" href="{{route('schedule.edit', $schedule->id)}}">編集</a>
-                            </div>
+                        <div class="mt-4 mx-auto text-right d-flex justify-content-end">
+                            <a class="btn btn-primary mr-3" href="{{route('schedule.edit', $schedule->id)}}">編集</a>
+                            <delete-modal :schedule_id='{{$schedule->id}}' :csrf='{{json_encode(csrf_token())}}'></delete-modal>
+                        </div>
                     </div>
                 </div>
             </div>

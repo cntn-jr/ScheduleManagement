@@ -47,8 +47,8 @@
                                 @enderror
                             </div>
 
-                            <div class="col-10 my-4 mx-auto text-right">
-                                <button type="submit" class="btn btn-primary">変更</button>
+                            <div class="col-10 my-4 mx-auto d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary mr-4">変更</button>
                             </div>
                         </form>
                     </div>
