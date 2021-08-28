@@ -94,6 +94,7 @@
         </nav>
 
         <success_message message={{ session('success_message') }}></success_message>
+        <error_message message={{ session('error_message') }}></error_messsage>
 
         <main class="py-4">
             @yield('content')

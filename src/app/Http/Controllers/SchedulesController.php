@@ -77,7 +77,12 @@ class SchedulesController extends Controller
      */
     public function show(schedules $schedules, $id)
     {
+        $user = Auth::user();
         $schedule = $schedules->find($id);
+        if($user->id != $schedule->user_id){
+            $error_message = 'エラーが発生しました';
+            return redirect('/')->with(['error_message'=>$error_message]);
+        }
         $scheduledDate = date('Y/m/d' ,strtotime($schedule->scheduledDate));
         $schedule->scheduledDate = $scheduledDate;
         return view('schedules.show')->with(['schedule'=>$schedule]);
@@ -91,7 +96,12 @@ class SchedulesController extends Controller
      */
     public function edit(schedules $schedules, $id)
     {
-        $schedule = Schedules::find($id);
+        $user = Auth::user();
+        $schedule = $schedules->find($id);
+        if($user->id != $schedule->user_id){
+            $error_message = 'エラーが発生しました';
+            return redirect('/')->with(['error_message'=>$error_message]);
+        }
         return view('schedules.edit')->with(['schedule'=>$schedule]);
     }
 
@@ -104,7 +114,12 @@ class SchedulesController extends Controller
      */
     public function update(Request $request, schedules $schedules, $id)
     {
+        $user = Auth::user();
         $schedule = $schedules->find($id);
+        if($user->id != $schedule->user_id){
+            $error_message = 'エラーが発生しました';
+            return redirect('/')->with(['error_message'=>$error_message]);
+        }
         $request->validate([
             'title' => ['required', 'string', 'max:20'],
             'content' => ['required', 'string', 'max:100'],
@@ -135,8 +150,10 @@ class SchedulesController extends Controller
     {
         $user = Auth::user();
         $schedule = $schedules->find($id);
-        // dd($schedule);
-        if($schedule->user_id != $user->id) return redirect('/');
+        if($schedule->user_id != $user->id) {
+            $error_message = 'エラーが発生しました';
+            return redirect('/')->with(['error_message'=>$error_message]);
+        }
         $schedule->delete();
         $success_message = '予定を削除しました';
         return redirect()->route('calendar.index')->with(['success_message'=>$success_message]);
