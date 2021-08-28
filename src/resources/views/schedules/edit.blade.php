@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8 mt-5">
                 <div class="card">
-                    <div class="card-header bg-primary text-white">{{ __('予定の追加') }}</div>
+                    <div class="card-header bg-primary text-white">{{ __('予定の編集') }}</div>
 
                     <div class="card-body">
                         <form action="{{route('schedule.update', $schedule->id)}}" method="post">

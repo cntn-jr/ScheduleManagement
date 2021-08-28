@@ -10,7 +10,9 @@
 
                     <div class="card-body">
                         <div class="mt-2 mb-4 text-right">
-                            <a class="btn btn-outline-danger btn-sm rounded-pill">＋予定追加</a>
+                            <a class="btn btn-outline-danger btn-sm rounded-pill" href="/schedule/create">
+                                ＋予定追加
+                            </a>
                         </div>
                         <div class="mb-5">
                             <schedule-list :schedules={{$schedules}} at-time='{{$date}}'></schedule-list>
