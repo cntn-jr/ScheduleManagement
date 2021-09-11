@@ -93,8 +93,8 @@
             </div>
         </nav>
 
-        <success_message message={{ session('success_message') }}></success_message>
-        <error_message message={{ session('error_message') }}></error_messsage>
+        <success-message message={{ session('success_message') }}></success-message>
+        <error-message message={{ session('error_message') }}></error-message>
 
         <main class="py-4">
             @yield('content')

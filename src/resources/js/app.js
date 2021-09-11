@@ -24,8 +24,8 @@ import Vue from 'vue';
 Vue.component('calendar-component', require('./components/CalendarComponent.vue').default);
 Vue.component('schedule-list', require('./components/ScheduleList.vue').default);
 Vue.component('delete-modal', require('./components/DeleteModal.vue').default);
-Vue.component('success_message', require('./components/SuccessMessage.vue').default);
-Vue.component('error_message', require('./components/ErrorMessage.vue').default);
+Vue.component('success-message', require('./components/SuccessMessage.vue').default);
+Vue.component('error-message', require('./components/ErrorMessage.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

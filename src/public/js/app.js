@@ -2275,8 +2275,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js"
 vue__WEBPACK_IMPORTED_MODULE_0__.default.component('calendar-component', __webpack_require__(/*! ./components/CalendarComponent.vue */ "./resources/js/components/CalendarComponent.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_0__.default.component('schedule-list', __webpack_require__(/*! ./components/ScheduleList.vue */ "./resources/js/components/ScheduleList.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_0__.default.component('delete-modal', __webpack_require__(/*! ./components/DeleteModal.vue */ "./resources/js/components/DeleteModal.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_0__.default.component('success_message', __webpack_require__(/*! ./components/SuccessMessage.vue */ "./resources/js/components/SuccessMessage.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_0__.default.component('error_message', __webpack_require__(/*! ./components/ErrorMessage.vue */ "./resources/js/components/ErrorMessage.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_0__.default.component('success-message', __webpack_require__(/*! ./components/SuccessMessage.vue */ "./resources/js/components/SuccessMessage.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_0__.default.component('error-message', __webpack_require__(/*! ./components/ErrorMessage.vue */ "./resources/js/components/ErrorMessage.vue").default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -6911,7 +6911,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.fade-enter-active[data-v-329767af], .fade-leave-active[data-v-329767af] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-329767af], .fade-leave-to[data-v-329767af] /* .fade-leave-active below version 2.1.8 */ {\n    opacity: 0;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.fade-enter-active[data-v-329767af], .fade-leave-active[data-v-329767af] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-329767af], .fade-leave-to[data-v-329767af] {\n    opacity: 0;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
