@@ -28,6 +28,9 @@ export default {
     mounted(){
         if(this.message){
             this.is_show = true;
+            setTimeout(()=>{
+                this.is_show = false;
+            },5000)
         }
     },
     props: ["message"],

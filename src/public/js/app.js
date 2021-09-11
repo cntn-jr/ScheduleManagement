@@ -2234,8 +2234,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {},
   mounted: function mounted() {
+    var _this = this;
+
     if (this.message) {
       this.is_show = true;
+      setTimeout(function () {
+        _this.is_show = false;
+      }, 5000);
     }
   },
   props: ["message"]
