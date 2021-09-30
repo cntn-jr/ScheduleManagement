@@ -6,7 +6,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use App\Rules\CorrectPassword;
 
 class UserController extends Controller
 {
@@ -91,6 +93,53 @@ class UserController extends Controller
         $user->email = $request->input('email');
         $user->save();
         return redirect()->route('user.edit', $user_id)->with('success_message', 'プロフィールを更新しました');
+    }
+
+    public function confirmPasswordView(int $user_id, Request $request){
+        $user = Auth::user();
+        if($user->id != $user_id)
+            return redirect()->route('schedule.index')->with('error_message', 'アクセス権限がありません');
+        return view('User.confirmPassword');
+    }
+
+    public function confirmPasswordFunc(Request $request, int $user_id){
+        $user = Auth::user();
+        if($user->id != $user_id)
+            return redirect()->route('schedule.index')->with('error_message', 'アクセス権限がありません');
+        $request->validate([
+            'password_current' => ['required', 'string', new CorrectPassword]
+        ]);
+        $request->session()->put('is_confirm_password', true);
+        return redirect()->route('user.change_password', $user->id);
+    }
+
+    public function changePassword(Request $request, int $user_id){
+        $user = Auth::user();
+        if(!$request->session()->get('is_confirm_password'))
+            return redirect()->route('user.confirm_password', $user->id);
+        if($user->id != $user_id)
+            return redirect()->route('schedule.index')->with('error_message', 'アクセス権限がありません');
+        return view('User.changePassword');
+    }
+
+    public function updatePassword(Request $request, int $user_id){
+        $user = Auth::user();
+        $update_user = User::find($user_id);
+        if(!$request->session('is_confirm_password'))
+            return redirect()->route('user.confirm_password', $user->id);
+        if($user->id != $user_id)
+            return redirect()->route('schedule.index')->with('error_message', 'アクセス権限がありません');
+        $request->validate([
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ],[
+            'password.required'  => 'パスワードは必須項目です。',
+            'password.min' => 'パスワードは８文字以上です。',
+            'password.confirmed' => 'パスワードを正確に入力して下さい。',
+        ]);
+        $update_user->password = Hash::make($request->input('password'));
+        $update_user->save();
+        $request->session()->put('is_confirm_password', false);
+        return redirect()->route('schedule.index')->with('success_message', 'パスワードを変更しました');
     }
 
     /**

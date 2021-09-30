@@ -81,6 +81,10 @@
                                         {{ __('プロフィール') }}
                                     </a>
 
+                                    <a class="dropdown-item"　href="{{ route('user.confirm_password', Auth::user()->id) }}">
+                                        {{ __('パスワード変更') }}
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
