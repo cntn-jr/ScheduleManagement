@@ -24,8 +24,12 @@ class SchedulesController extends Controller
         $week_schedules = Schedules::where('user_id', $user->id)
                     ->whereBetween('scheduledDate', $week_ary)
                     ->get();
+        $recent_add_schedules = Schedules::where('user_id', $user->id)
+                    ->orderBy('created_at', 'desc')
+                    ->limit(5)
+                    ->get();
         return view('schedules/index')
-            ->with(['today_schedules'=>$today_schedules, 'week_schedules'=>$week_schedules]);
+            ->with(['today_schedules'=>$today_schedules, 'week_schedules'=>$week_schedules, 'recent_add_schedules' =>$recent_add_schedules]);
     }
 
     /**

@@ -4,7 +4,10 @@
             <table class="table table-borderless">
                 <tr v-for="(schedule, index) in schedules" :key="index">
                     <td class="col text-center">
-                        <h5><a :href="link + schedule.id">{{schedule.title}}</a></h5>
+                        <h4 class="text-left ml-2 mt-2"><a :href="link + schedule.id">{{schedule.title}}</a></h4>
+                        <div class="col my-3">
+                            {{schedule.content}}
+                        </div>
                     </td>
                 </tr>
             </table>
@@ -44,5 +47,8 @@ export default {
     a{
         color: #2c3e50;
         text-decoration-color: #bdc3c7;
+    }
+    td{
+        border-bottom: solid gainsboro 0.5px;
     }
 </style>
