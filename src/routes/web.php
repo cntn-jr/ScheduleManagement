@@ -31,7 +31,7 @@ Route::get('/user/{id}/change_password', 'UserController@changePassword')->middl
 
 Route::put('/user/{id}/update_password', 'UserController@updatePassword')->middleware('auth')->name('user.update_password');
 
-Route::resource('/schedule', 'SchedulesController')->middleware('auth');
+Route::resource('/schedule', 'SchedulesController')->middleware('auth')->middleware('cors');
 
 Route::resource('/calendar', 'CalendarController')->middleware('auth');
 

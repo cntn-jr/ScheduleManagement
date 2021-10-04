@@ -9,6 +9,9 @@ require('./bootstrap');
 window.Vue = require('vue').default;
 
 import Vue from 'vue';
+import axios from 'axios';
+
+Vue.prototype.$axios = axios;
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -26,6 +29,7 @@ Vue.component('schedule-list', require('./components/ScheduleList.vue').default)
 Vue.component('delete-modal', require('./components/DeleteModal.vue').default);
 Vue.component('success-message', require('./components/SuccessMessage.vue').default);
 Vue.component('error-message', require('./components/ErrorMessage.vue').default);
+Vue.component('weather-component', require('./components/Weather.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
