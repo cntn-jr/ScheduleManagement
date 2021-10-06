@@ -9,7 +9,7 @@
                     <div class="card-header bg-primary text-white">{{ __('今日の予定') }}</div>
 
                     <div class="card-body">
-                        <schedule-list :schedules={{$today_schedules}} at-time='今日'></schedule-list>
+                        <schedule-list :schedules='@json($today_schedules)' at-time='今日'></schedule-list>
                     </div>
                 </div>
             </div>
@@ -19,7 +19,7 @@
                     <div class="card-header bg-success text-white">{{ __('一週間の予定') }}</div>
 
                     <div class="card-body">
-                        <schedule-list :schedules={{$week_schedules}} at-time='一週間'></schedule-list>
+                        <schedule-list :schedules='@json($week_schedules)' at-time='一週間'></schedule-list>
                     </div>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                     <div class="card-header bg-info text-white">{{ __('最近追加した予定') }}</div>
 
                     <div class="card-body">
-                        <schedule-list :schedules={{$recent_add_schedules}} at-time='最近追加した'></schedule-list>
+                        <schedule-list :schedules='@json($recent_add_schedules)' at-time='最近追加した'></schedule-list>
                     </div>
                 </div>
             </div>

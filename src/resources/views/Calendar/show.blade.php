@@ -15,7 +15,7 @@
                             </a>
                         </div>
                         <div class="mb-5">
-                            <schedule-list :schedules={{$schedules}} at-time='{{$date}}'></schedule-list>
+                            <schedule-list :schedules='@json($schedules)' at-time='{{$date}}'></schedule-list>
                         </div>
                     </div>
                 </div>
