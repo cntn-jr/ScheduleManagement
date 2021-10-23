@@ -8,13 +8,7 @@
                     <img :src="`http://openweathermap.org/img/w/${weatherData['weather'][0]['icon']}.png`">
                 </p>
             </div>
-            <div class="card-footer bg-transparent">{{weatherData['main']['temp']}}℃</div>
-        </div>
-        <div v-if="weatherData">
-            <img :src="`http://openweathermap.org/img/w/${weatherData['weather'][0]['icon']}.png`">
-            <ul v-for="(w,index) in weatherData" :key="index">
-                <li>{{index}}:{{w}}</li>
-            </ul>
+            <div class="card-footer bg-transparent">{{Math.round(weatherData['main']['temp'])}}℃</div>
         </div>
     </div>
 </template>

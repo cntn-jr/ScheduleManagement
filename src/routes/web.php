@@ -36,3 +36,5 @@ Route::resource('/schedule', 'SchedulesController')->middleware('auth')->middlew
 Route::resource('/calendar', 'CalendarController')->middleware('auth');
 
 Route::get('/calendar/{year}/{month}/{day}', 'CalendarController@showDay')->middleware('auth');
+
+Route::get('/weather/forecast', 'WeatherController@forecastWeather')->middleware('auth')->middleware('cors')->name('weather.forecast');

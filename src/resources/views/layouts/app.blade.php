@@ -67,6 +67,10 @@
                                     <a class="dropdown-item" href="{{route('calendar.index')}}">
                                         {{ __('カレンダー') }}
                                     </a>
+
+                                    <a class="dropdown-item" href="{{route('weather.forecast')}}">
+                                        {{ __('天気予報') }}
+                                    </a>
                                 </div>
 
                             </li>

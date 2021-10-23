@@ -30,6 +30,7 @@ Vue.component('delete-modal', require('./components/DeleteModal.vue').default);
 Vue.component('success-message', require('./components/SuccessMessage.vue').default);
 Vue.component('error-message', require('./components/ErrorMessage.vue').default);
 Vue.component('weather-component', require('./components/Weather.vue').default);
+Vue.component('weather-forecast', require('./components/WeatherForecast.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
