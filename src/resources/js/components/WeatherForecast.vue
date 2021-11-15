@@ -17,7 +17,9 @@
                     <p class="text-center text-line">{{weather['weather'][0]["description"]}}</p>
                     <p class="text-center text-danger text-line">{{Math.round(weather['temp']["max"])}}℃</p>
                     <p class="text-center text-primary text-line">{{Math.round(weather['temp']["min"])}}℃</p>
-                    <p class="text-center text-secondary text-line">{{weather['pop'] * 100}}％</p>
+                    <p class="text-center text-secondary text-line">
+                        {{Math.round(weather['pop'] * 10) * 10}}％
+                    </p>
                 </li>
             </ul>
         </div>
