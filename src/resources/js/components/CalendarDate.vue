@@ -1,25 +1,34 @@
 <template>
     <div>
-        <a v-bind:href="'/calendar/' + year + '/' + month + '/' + date.date">
-            <div class="date-box col">
-                <span :class="date.class">{{date.date}}</span>
-                <div v-if="isSchedule" class="is-schedule text-truncate mt-2">
-                    予定あり
-                </div>
+        <!-- <a v-bind:href="'/calendar/' + year + '/' + month + '/' + date.date"> -->
+        <div class="date-box col" @click="showModal">
+            <span :class="date.class">{{date.date}}</span>
+            <div v-if="isSchedule" class="is-schedule text-truncate mt-2">
+                予定あり
             </div>
-        </a>
+        </div>
+        <!-- </a> -->
+        <div v-if="isModal">
+            <schedule-modal :schedules="schedules" :year="year" :month="month" :date="date" v-on:exitModal="isModal = $event"></schedule-modal>
+        </div>
     </div>
 </template>
 
 <script>
+import ScheduleModal from './ScheduleModal.vue';
 const moment = require('moment')
 
 export default {
+  components: { ScheduleModal },
     data(){
         return{
+            isModal: false
         }
     },
     methods:{
+        showModal(){
+            this.isModal = true;
+        }
     },
     computed:{
         isSchedule(){
@@ -38,14 +47,15 @@ export default {
             return false;
         }
     },
-    mounted(){
-        console.log(this.date);
-    },
     props: ["schedules", "year", "month", "date"],
 }
 </script>
 
 <style scoped>
+
+.date-box{
+    cursor: pointer;
+}
 
 .notThisMonth{
     opacity: 0.4;
