@@ -2591,6 +2591,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -61544,7 +61546,13 @@ var render = function() {
                     _c(
                       "p",
                       { staticClass: "text-center text-secondary text-line" },
-                      [_vm._v(_vm._s(weather["pop"] * 100) + "％")]
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(Math.round(weather["pop"] * 10) * 10) +
+                            "％\n                "
+                        )
+                      ]
                     )
                   ]
                 )
